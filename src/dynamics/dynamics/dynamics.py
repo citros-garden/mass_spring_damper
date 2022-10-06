@@ -12,7 +12,7 @@ class Dynamics(Node):
         self.vel_pub = self.create_publisher(Float64, '/dynamics/velocity', 10)
         self.ctrl_sub = self.create_subscription(Float64, '/controller/command', self.ctrl_cb, 10)
 
-        self.dt = 0.05  # seconds
+        self.dt = 0.1  # seconds
         # define parameters
 
         self.declare_parameter('m')
@@ -24,6 +24,8 @@ class Dynamics(Node):
         self.declare_parameter('a')
 
         self.ctrl_cmd = 0
+        self.pose = Float64()
+        self.vel = Float64()
 
         time.sleep(1)
 
@@ -56,14 +58,13 @@ class Dynamics(Node):
 
         self.solve_ode()
 
-        pose = Float64()
-        vel = Float64()
-        pose.data = self.x
-        vel.data = self.v
-        self.get_logger().info(f"mass position: {pose.data}")
+        self.pose.data = self.x
+        self.vel.data = self.v
 
-        self.pose_pub.publish(pose)
-        self.vel_pub.publish(vel)
+        self.get_logger().info(f"mass position: {self.pose.data}")
+
+        self.pose_pub.publish(self.pose)
+        self.vel_pub.publish(self.vel)
         
 def main(args=None):
     rclpy.init(args=args)
