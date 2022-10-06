@@ -12,23 +12,16 @@ class Dynamics(Node):
         self.vel_pub = self.create_publisher(Float64, '/dynamics/velocity', 10)
         self.ctrl_sub = self.create_subscription(Float64, '/controller/command', self.ctrl_cb, 10)
 
-        self.dt = 0.01  # seconds
+        self.dt = 0.05  # seconds
         # define parameters
-        m = 1.0
-        k = 2.5
-        c = 0.3
 
-        x0 = 15.0
-        v0 = 0.0
-        a0 = 0.0
+        self.declare_parameter('m')
+        self.declare_parameter('k')
+        self.declare_parameter('c')
 
-        self.declare_parameter('m', m)
-        self.declare_parameter('k', k)
-        self.declare_parameter('c', c)
-
-        self.declare_parameter('x', x0)
-        self.declare_parameter('v', v0)
-        self.declare_parameter('a', a0)
+        self.declare_parameter('x')
+        self.declare_parameter('v')
+        self.declare_parameter('a')
 
         self.ctrl_cmd = 0
 
@@ -53,7 +46,7 @@ class Dynamics(Node):
         spring_force = self.k * self.x # Fs = k * x
         damper_force = self.c * self.v # Fc = c * v
 
-        self.a = (self.ctrl_cmd - spring_force + damper_force) / self.m
+        self.a = (self.ctrl_cmd - spring_force - damper_force) / self.m
 
         self.v += (self.a * self.dt) # Integral(a) = v
 
