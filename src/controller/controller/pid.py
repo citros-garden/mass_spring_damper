@@ -26,6 +26,9 @@ class Pid(Node):
         self.pose = 0.0
         self.vel = 0.0
 
+        self._last_error = 0.0
+        self._last_vel_feedback = 0.0
+
         time.sleep(1)
 
         self.kp = self.get_parameter('kp').get_parameter_value().double_value
@@ -34,6 +37,7 @@ class Pid(Node):
         self.setpoint = self.get_parameter('setpoint').get_parameter_value().double_value
 
         time.sleep(1)
+        self.get_logger().info(f"Starting PID controller with: Kp = {self.kp}, Ki = {self.ki}, Kd = {self.kd}")
 
         self.timer = self.create_timer(self.dt, self.step)
 
@@ -44,11 +48,21 @@ class Pid(Node):
         self.vel = msg.data
 
     def step(self):
-        p_element = self.kp * (self.setpoint - self.pose)
-        i_element = self.ki * ()
-        d_element = self.kd * ()
+        error = self.setpoint - self.pose
+        i_error = self._last_error + self.ki*error*self.dt
+        d_error = (self.vel - self._last_vel_feedback)/self.dt
 
+        p_element = self.kp * (error)
+        i_element = self.ki * (i_error)
+        d_element = self.kd * (d_error)
         
+        self.ctrl_msg.data = p_element + i_element + d_element
+
+        self.ctrl_pub.publish(self.ctrl_msg)
+
+        self._last_error = i_error
+        self._last_vel_feedback = self.vel
+
 def main(args=None):
     rclpy.init(args=args)
     controller = Pid()
