@@ -1,6 +1,14 @@
 # General Info
 
-this workspace contians two packages for mass-spring-damper simulation:
+This is a simple ROS demonstration of a mass-spring-damper system.
+In the ROS system we have two nodes: the first represents the dynamics and the second one is the controller.
 
-1. dynamics of the system.
-2. controllers.
+# System dynamics
+
+
+# The controller
+
+
+# Installation
+
+                reopen
