@@ -61,7 +61,7 @@ class Dynamics(Node):
         self.pose.data = self.x
         self.vel.data = self.v
 
-        self.get_logger().info(f"mass position: {self.pose.data}")
+        self.get_logger().info(f"pose: {self.pose.data}, controller: {self.ctrl_cmd}")
 
         self.pose_pub.publish(self.pose)
         self.vel_pub.publish(self.vel)
