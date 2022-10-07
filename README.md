@@ -56,6 +56,6 @@ to run the default controller:
                 ros2 launch dynamics dynamics_controller.launch
 
 
-![](https://user-images.githubusercontent.com/58637596/194480849-513b2441-8c73-480e-888e-95976b35b263.gif)
+<video src='https://user-images.githubusercontent.com/58637596/194520348-c97344c0-b9be-4ad5-ba11-29188c18011e.mp4' width=600/>
 
 
