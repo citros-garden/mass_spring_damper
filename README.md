@@ -51,7 +51,7 @@ you can run the free-system without controller with this launch file:
                 ros2 launch dynamics dynamics.launch
 
 
-to the the default controller:
+to run the default controller:
 
                 ros2 launch dynamics dynamics_controller.launch
 
