@@ -27,7 +27,7 @@ class Pid(Node):
         self.vel = 0.0
 
         self._last_error = 0.0
-        self._last_vel_feedback = 0.0
+        self._last_pose_feedback = 0.0
 
         time.sleep(1)
 
@@ -50,7 +50,7 @@ class Pid(Node):
     def step(self):
         error = self.setpoint - self.pose
         i_error = self._last_error + self.ki*error*self.dt
-        d_error = -(self.vel - self._last_vel_feedback)/self.dt
+        d_error = (self.pose - self._last_pose_feedback)/self.dt
 
         p_element = self.kp * (error)
         i_element = self.ki * (i_error)
