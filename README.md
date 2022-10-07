@@ -17,7 +17,7 @@ and we get a simple second order system:
 
 where the natural frequency &omega;<sub>n</sub> =  <span>&#8730;</span>k/m
 
-You can choose the system's parameters m, k and c and choose the initial condition x0, v0 and a0 and set them in the [dynamics parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/dynamics/config/params.yaml)
+You can choose the system's parameters `m`, `k` and `c` and choose the initial condition `x0`, `v0` and `a0` and set them in the [dynamics parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/dynamics/config/params.yaml)
 
 
 # The controller
@@ -28,7 +28,7 @@ the default controller is a simple PID controller with the following form:
 
 F(t) = k<sub>p</sub>*e(t) + k<sub>i</sub><span>&#8747;</span>e(t)dt + k<sub>d</sub>d&frasl;<sub>dt</sub>(e(t))
 
-you can tune the controller gains on the [parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/controller/config/params.yaml)
+you can tune the controller gains, k<sub>p</sub>, k<sub>i</sub>, k<sub>d</sub> on the [controller parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/controller/config/params.yaml)
 
 
 # Installation
