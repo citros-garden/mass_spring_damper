@@ -27,31 +27,31 @@ def generate_launch_description():
         parameters = [controller_config]
     )
 
-    # free_dynamics=Node(
-    #     package = 'dynamics',
-    #     name = 'free_dynamics',
-    #     executable = 'dynamics',
-    #     parameters = [{'m': 1.0, 'k': 2.5, 'c': 0.3, 'x': -1.0, 'v': 0.0, 'a': 0.0}],
-    #     remappings=[
-    #         ('dynamics/position', '/free_dynamics/position'),
-    #         ('dynamics/velocity', '/free_dynamics/velocity'),
-    #         ('controller/command', '/free_controller/command'),
-    #     ]
-    # )
-    # free_controller=Node(
-    #     package = 'controller',
-    #     name = 'free_pid',
-    #     executable = 'pid',
-    #     parameters = [{'kp': 0.0, 'ki': 0.0, 'kd': 0.0}],
-    #     remappings=[
-    #         ('dynamics/position', '/free_dynamics/position'),
-    #         ('dynamics/velocity', '/free_dynamics/velocity'),
-    #         ('controller/command', '/free_controller/command'),
-    #     ]
+    free_dynamics=Node(
+        package = 'dynamics',
+        name = 'free_dynamics',
+        executable = 'dynamics',
+        parameters = [{'m': 1.0, 'k': 2.5, 'c': 0.3, 'x': -1.0, 'v': 0.0, 'a': 0.0}],
+        remappings=[
+            ('dynamics/position', '/free_dynamics/position'),
+            ('dynamics/velocity', '/free_dynamics/velocity'),
+            ('controller/command', '/free_controller/command'),
+        ]
+    )
+    free_controller=Node(
+        package = 'controller',
+        name = 'free_pid',
+        executable = 'pid',
+        parameters = [{'kp': 0.0, 'ki': 0.0, 'kd': 0.0}],
+        remappings=[
+            ('dynamics/position', '/free_dynamics/position'),
+            ('dynamics/velocity', '/free_dynamics/velocity'),
+            ('controller/command', '/free_controller/command'),
+        ]
         
-    # )
+    )
     ld.add_action(dynamics)
     ld.add_action(controller)
-    # ld.add_action(free_dynamics)
-    # ld.add_action(free_controller)
+    ld.add_action(free_dynamics)
+    ld.add_action(free_controller)
     return ld
