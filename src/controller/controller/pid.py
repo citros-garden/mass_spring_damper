@@ -50,7 +50,7 @@ class Pid(Node):
     def step(self):
         error = self.setpoint - self.pose
         i_error = self._last_error + self.ki*error*self.dt
-        d_error = (self.pose - self._last_pose_feedback)/self.dt
+        d_error = -(self.pose - self._last_pose_feedback)/self.dt
 
         p_element = self.kp * (error)
         i_element = self.ki * (i_error)
@@ -60,7 +60,7 @@ class Pid(Node):
 
         self.ctrl_pub.publish(self.ctrl_msg)
 
-        self._last_error = i_error
+        self._last_error = error
         self._last_pose_feedback = self.pose
 
 def main(args=None):
