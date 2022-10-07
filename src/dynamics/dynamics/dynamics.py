@@ -12,7 +12,7 @@ class Dynamics(Node):
         self.vel_pub = self.create_publisher(Float64, '/dynamics/velocity', 10)
         self.ctrl_sub = self.create_subscription(Float64, '/controller/command', self.ctrl_cb, 10)
 
-        self.dt = 0.1  # seconds
+        self.dt = 0.01  # seconds
         # define parameters
 
         self.declare_parameter('m')
@@ -61,7 +61,7 @@ class Dynamics(Node):
         self.pose.data = self.x
         self.vel.data = self.v
 
-        self.get_logger().info(f"pose: {self.pose.data}, controller: {self.ctrl_cmd}")
+        self.get_logger().info(f"pose: {self.pose.data}, controller: {self.ctrl_cmd}", throttle_duration_sec=0.5)
 
         self.pose_pub.publish(self.pose)
         self.vel_pub.publish(self.vel)

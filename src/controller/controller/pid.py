@@ -13,7 +13,7 @@ class Pid(Node):
         self.pose_sub = self.create_subscription(Float64, '/dynamics/position', self.pose_cb, 10)
         self.vel_sub = self.create_subscription(Float64, '/dynamics/velocity', self.vel_cb, 10)
 
-        self.dt = 0.25  # seconds
+        self.dt = 0.1  # seconds
         # define parameters
 
         self.declare_parameter('kp')
