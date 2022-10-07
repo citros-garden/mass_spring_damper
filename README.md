@@ -56,3 +56,6 @@ to the the default controller:
                 ros2 launch dynamics dynamics_controller.launch
 
 
+![](https://user-images.githubusercontent.com/58637596/194480849-513b2441-8c73-480e-888e-95976b35b263.gif)
+
+
