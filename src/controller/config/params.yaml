@@ -1,6 +1,6 @@
 pid:
   ros__parameters:
-    kp: 0.0
+    kp: 0.1
     ki: 0.0
-    kd: 0.0
+    kd: 0.25
     setpoint: 0.0
