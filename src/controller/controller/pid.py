@@ -61,7 +61,7 @@ class Pid(Node):
         self.ctrl_pub.publish(self.ctrl_msg)
 
         self._last_error = i_error
-        self._last_vel_feedback = self.vel
+        self._last_pose_feedback = self.pose
 
 def main(args=None):
     rclpy.init(args=args)
