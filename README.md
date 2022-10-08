@@ -9,9 +9,9 @@ In the ROS system we have two nodes: the first represents the dynamics and the s
 
 With Newhon's second law the equations of motion:
 
-$$m\ddot X =  F(t) -c\dot X -kX$$
+$$m\ddot x =  f(t) -c\dot x -kx$$
 
-and we get a simple second order system:
+and after laplace transformation (with zero I.C) we get a second order system:
 
 $${X \over F} = {1 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
 
