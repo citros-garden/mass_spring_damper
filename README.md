@@ -9,11 +9,11 @@ In the ROS system we have two nodes: the first represents the dynamics and the s
 
 With Newhon's second law the equations of motion:
 
-$m\ddot X =  F(t) -c\dot X -kX$
+$$m\ddot X =  F(t) -c\dot X -kX$$
 
 and we get a simple second order system:
 
-${X \over F} = {\omega_n^2 \over s^2 +2\omega_n\zeta s + \omega_n^2} $
+$${X \over F} = {\omega_n^2 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
 
 where the natural frequency $\omega_n = \sqrt{k \over m}$
 
@@ -26,7 +26,7 @@ You can write your own controller to try stabilize the system for a given setpoi
 
 the default controller is a simple PID controller with the following form:
 
-$ F(t) = {k_pe(t) + k_i\int{e(t)dt}} + k_d {d\over dt}(e(t))$
+$$F(t) = {k_pe(t) + k_i\int{e(t)dt}} + k_d {d\over dt}(e(t))$$
 
 you can tune the controller gains, k<sub>p</sub>, k<sub>i</sub>, k<sub>d</sub> on the [controller parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/controller/config/params.yaml)
 
