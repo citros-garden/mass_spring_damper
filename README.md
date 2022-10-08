@@ -7,7 +7,7 @@ In the ROS system we have two nodes: the first represents the dynamics and the s
 
 # System dynamics
 
-With Newhon's second law the equations of motion:
+The system's equations of motion:
 
 $$m\ddot x =  kf(t) -c\dot x -kx$$
 
