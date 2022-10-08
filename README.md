@@ -13,7 +13,7 @@ $$m\ddot X =  F(t) -c\dot X -kX$$
 
 and we get a simple second order system:
 
-$${X \over F} = {\omega_n^2 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
+$${X \over F} = {1 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
 
 where the natural frequency $\omega_n = \sqrt{k \over m}$
 
