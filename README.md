@@ -3,7 +3,7 @@
 This is a simple ROS demonstration of a mass-spring-damper system.
 In the ROS system we have two nodes: the first represents the dynamics and the second one is the controller.
 
-![](https://user-images.githubusercontent.com/58637596/194471956-3d61c70f-3d68-4e00-90c7-8a64c35b29aa.png)
+![](https://user-images.githubusercontent.com/58637596/194718349-455a479d-434e-45a6-86bc-0a4f5d95dd49.png)
 
 # System dynamics
 
