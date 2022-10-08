@@ -26,7 +26,7 @@ You can write your own controller to try stabilize the system for a given setpoi
 
 the default controller is a simple PID controller with the following form:
 
-$ F(t) = {k_pe(t) + }$
+$ F(t) = {k_pe(t) + k_i\int{e(t)dt}} + k_d {d\over dt}(e(t))$
 
 you can tune the controller gains, k<sub>p</sub>, k<sub>i</sub>, k<sub>d</sub> on the [controller parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/controller/config/params.yaml)
 
