@@ -14,6 +14,6 @@ COPY . .
 RUN colcon build
 
 RUN chmod +x ros2_entrypoint.sh
-ENTRYPOINT ["ros2_entrypoint.sh"]
+# ENTRYPOINT ["ros2_entrypoint.sh"]
 
 CMD ["bash"]
