@@ -18,12 +18,11 @@ jobs:
       env:  
         DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_REPOSITORY }}
-        
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_TOKEN   
+        DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_REPOSITORY }}        
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN           
+      
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $DOCKER_USER/$DOCKER_HUB_REPOSITORY:$GITHUB_SHA
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/$DOCKER_HUB_REPOSITORY:$GITHUB_SHA      
       
     - name: Docker Push 
-        docker push $DOCKER_USER/$DOCKER_HUB_REPOSITORY:$GITHUB_SHA
+      run: docker push $DOCKER_USER/$DOCKER_HUB_REPOSITORY:$GITHUB_SHA
