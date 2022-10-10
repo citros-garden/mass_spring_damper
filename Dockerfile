@@ -13,6 +13,7 @@ WORKDIR /app
 COPY . .
 RUN colcon build
 
-ENTRYPOINT ["/app/ros2_entrypoint.sh"]
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["ros2_entrypoint.sh"]
 
 CMD ["bash"]
