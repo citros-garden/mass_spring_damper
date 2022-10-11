@@ -48,12 +48,12 @@ open the repository in the container from VScode
 
 you can run the free-system without controller with this launch file:
 
-                ros2 launch dynamics dynamics.launch
+                ros2 launch dynamics dynamics.launch.py
 
 
 to run the default controller:
 
-                ros2 launch dynamics dynamics_controller.launch
+                ros2 launch dynamics dynamics_controller.launch.py
 
 
 <video src='https://user-images.githubusercontent.com/58637596/194520348-c97344c0-b9be-4ad5-ba11-29188c18011e.mp4' width=600/>
