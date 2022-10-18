@@ -55,7 +55,18 @@ to run the default controller:
 
                 ros2 launch dynamics dynamics_controller.launch.py
 
-
 <video src='https://user-images.githubusercontent.com/58637596/194520348-c97344c0-b9be-4ad5-ba11-29188c18011e.mp4' width=600/>
+
+
+## Docker build
+
+        docker build -t lulav_simulators/demo_lulav_elbit:v1.0 -f LRS_manager/dockers/ros2.dockerfile .
+
+## Docker run 
+
+        docker run --rm -it --net=host lulav_simulators/demo_lulav_elbit:v1.0 ros2 launch dynamics dynamics_controller.launch.py
+        
+
+
 
 
