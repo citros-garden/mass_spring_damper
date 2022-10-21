@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . .
 RUN colcon build
-RUN pip install utils/LRS
+
+# RUN pip install utils/LRS
+RUN pip install LRS-Lulav
 
 RUN chmod +x ros2_entrypoint.sh
 ENTRYPOINT ["/app/ros2_entrypoint.sh"]

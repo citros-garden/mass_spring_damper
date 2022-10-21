@@ -10,8 +10,8 @@ from launch.event_handlers import (OnExecutionComplete, OnProcessExit,
                                 OnProcessIO, OnProcessStart, OnShutdown)
 from launch.events import Shutdown
 
-from LRS.LRS_Bag import LRS_Bag
-from LRS.LRS_params import LRS_params
+from LRS_Lulav.LRS_Bag import LRS_Bag
+from LRS_Lulav.LRS_params import LRS_params
 
 def handle_done_recording(context, *args, **kwargs):
     simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)  
