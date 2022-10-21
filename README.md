@@ -60,11 +60,11 @@ to run the default controller:
 
 ## Docker build
 
-        docker build -t lulav_simulators/demo_lulav_elbit:v1.0 -f LRS_manager/dockers/ros2.dockerfile .
+        docker build -t vovacooper/demo_lulav_elbit:latest .
 
 ## Docker run 
 
-        docker run --rm -it --net=host lulav_simulators/demo_lulav_elbit:v1.0 ros2 launch dynamics dynamics_controller.launch.py
+        docker run --rm -it --net=host vovacooper/demo_lulav_elbit:latest ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_instance_id:=635236a7846b4ecaf0404d01 simulation_instance_seq:=0
         
 
 
