@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -27,9 +28,10 @@ def handle_done_recording(context, *args, **kwargs):
     # TODO: delete file
     print(" -------- handle_done_recording: -------- ")
     
-def handle_timeout(context, *args, **kwargs):        
+def handle_timeout(context, *args, **kwargs):  
+    
     # TODO: send event to DB about timeout
-    print(" -------- handle_timeout: -------- ")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] -------- handle_timeout: -------- ")
     
 def handle_shutdown(context, *args, **kwargs):    
     # TODO: send event to DB about shutting down ? send logs to server?
@@ -68,7 +70,16 @@ def launch_setup(context, *args, **kwargs):
         ]),
         launch_arguments={}.items(),
     )
-    return [demo_elbit_launch]
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] Starting clients launch") 
+    return [
+        demo_elbit_launch,
+        TimerAction(
+        period=simulation["timeout"],
+        actions=[LogInfo(msg="---------TIMEOUT---------"), 
+            OpaqueFunction(function=handle_timeout),
+            EmitEvent(event=Shutdown(reason=f"TIMEOUT of {simulation['timeout']} is reached."))],
+        )
+    ]
 
     # second option. add actions for nodes. 
     # demo_elbit_launch
@@ -103,17 +114,18 @@ def launch_setup(context, *args, **kwargs):
     print(f"running {len(listeners)} entities")
     return listeners
     
-def generate_launch_description():        
+def generate_launch_description():       
     print("---------------------------")
     print("LRS-launching Elbit demo...")
     print("---------------------------")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}]")     
     
     record_proccess = ExecuteProcess(
         cmd=['ros2', 'bag', 'record', '-a', '-o', 'tmp/bag'], 
         output='screen', 
         log_cmd=True
     )
-    
+
     return LaunchDescription([
         # Arguments
         DeclareLaunchArgument(
@@ -151,7 +163,8 @@ def generate_launch_description():
             'timeout',
             description=(
                 "The timeout for the simulation [sec]"
-            ),      
+            ),   
+            default_value=str(60*60*24*7),   
         ),    
           
         # RECORDING Proccess
