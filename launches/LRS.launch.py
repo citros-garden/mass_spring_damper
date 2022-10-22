@@ -14,9 +14,10 @@ from LRS_Lulav.LRS_Bag import LRS_Bag
 from LRS_Lulav.LRS_params import LRS_params
 
 def handle_done_recording(context, *args, **kwargs):
-    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)  
-    simulation_instance_seq = LaunchConfiguration("simulation_instance_seq").perform(context)       
-    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], "mongodb://localhost:27017/", "simulations", "" + simulation_instance_id + "_" + simulation_instance_seq)
+    simulation_id = LaunchConfiguration("simulation_id").perform(context)
+    simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)  
+    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)       
+    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], "mongodb://localhost:27017/", "simulations", "" + simulation_id + "_" + simulation_run_id, simulation_instance_id)
     bagparser.fill_mongo()
     
     # TODO: delete file
@@ -41,7 +42,7 @@ def launch_setup(context, *args, **kwargs):
     user_id = LaunchConfiguration("user_id").perform(context)
     project_id = LaunchConfiguration("project_id").perform(context)
     simulation_id = LaunchConfiguration("simulation_id").perform(context)
-    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)
+    # simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)
     # simulation_instance_seq = LaunchConfiguration("simulation_instance_seq").perform(context)    
     
     define_params(user_id, project_id, simulation_id)
@@ -120,15 +121,15 @@ def generate_launch_description():
             ),      
         ),
         DeclareLaunchArgument(
-            'simulation_instance_id',
+            'simulation_run_id',
             description=(
-                "Simulation Instance id"
+                "Simulation Run id"
             ),      
         ),      
         DeclareLaunchArgument(
-            'simulation_instance_seq',
+            'simulation_instance_id',
             description=(
-                "Simulation sequence index, as part of [sequence]/[simulation.repeats]"
+                "Simulation sequence id, as part of [sequence]/[simulation.repeats]"
             ),      
         ),    
         DeclareLaunchArgument(
@@ -179,4 +180,4 @@ def generate_launch_description():
     ])
 
 
-# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_instance_id:=635236a7846b4ecaf0404d01 simulation_instance_seq:=1 timeout:=5
+# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_run_id:=635236a7846b4ecaf0404d01 simulation_instance_id:=0 timeout:=10
