@@ -9,9 +9,11 @@ from launch.substitutions import LaunchConfiguration, LocalSubstitution
 from launch.event_handlers import (OnExecutionComplete, OnProcessExit,
                                 OnProcessIO, OnProcessStart, OnShutdown)
 from launch.events import Shutdown
+from bson.objectid import ObjectId
 
 from LRS_Lulav.LRS_Bag import LRS_Bag
 from LRS_Lulav.LRS_params import LRS_params
+from LRS_Lulav.LRS_util import LRS_util
 
 def handle_done_recording(context, *args, **kwargs):
     user_id = LaunchConfiguration("user_id").perform(context)
@@ -44,10 +46,25 @@ def launch_setup(context, *args, **kwargs):
     lrs_params = LRS_params(user_id, project_id, simulation_id, simulation_run_id, simulation_instance_id)
     lrs_params.init_params()    
     
+    lrs_util = LRS_util()
+    
+    simulation = lrs_util.get_simulation(simulation_id)
+    launch_id = simulation["launch_id"]
+    package, launch = lrs_util.get_launch_file(user_id, project_id, launch_id);    
+    
+    # print("-----------package.name:", package["name"])
+    # print("-----------launch.name:", launch["name"])
+    # # demo_elbit_launch = IncludeLaunchDescription(
+    # #     PythonLaunchDescriptionSource([
+    # #         os.path.join(get_package_share_directory('dynamics'), 'launch'), # package name
+    # #         '/dynamics_controller.launch.py' # launch file 
+    # #     ]),
+    # #     launch_arguments={}.items(),
+    # # )
     demo_elbit_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            os.path.join(get_package_share_directory('dynamics'), 'launch'), # package name
-            '/dynamics_controller.launch.py' # launch file 
+            os.path.join(get_package_share_directory(package["name"]), 'launch'), 
+            f"/{launch['name']}"
         ]),
         launch_arguments={}.items(),
     )
@@ -128,6 +145,7 @@ def generate_launch_description():
             description=(
                 "Simulation sequence id, as part of [sequence]/[simulation.repeats]"
             ),      
+            default_value=str(ObjectId()),
         ),    
         DeclareLaunchArgument(
             'timeout',
@@ -177,4 +195,4 @@ def generate_launch_description():
     ])
 
 
-# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_run_id:=635236a7846b4ecaf0404d01 simulation_instance_id:=0 timeout:=10
+# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_run_id:=635236a7846b4ecaf0404d01 timeout:=10
