@@ -130,7 +130,13 @@ def generate_launch_description():
             description=(
                 "Simulation sequence index, as part of [sequence]/[simulation.repeats]"
             ),      
-        ),       
+        ),    
+        DeclareLaunchArgument(
+            'timeout',
+            description=(
+                "The timeout for the simulation [sec]"
+            ),      
+        ),    
           
         # RECORDING Proccess
         record_proccess,
@@ -155,7 +161,7 @@ def generate_launch_description():
         
         # Events
         TimerAction(
-            period=5.0,
+            period=LaunchConfiguration("timeout"),
             actions=[LogInfo(msg="---------TIMEOUT---------"), 
                      OpaqueFunction(function=handle_timeout),
                      EmitEvent(event=Shutdown(reason='TIMEOUT'))],
@@ -173,4 +179,4 @@ def generate_launch_description():
     ])
 
 
-# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_instance_id:=635236a7846b4ecaf0404d01 simulation_instance_seq:=1
+# ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_instance_id:=635236a7846b4ecaf0404d01 simulation_instance_seq:=1 timeout:=5
