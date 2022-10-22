@@ -14,10 +14,12 @@ from LRS_Lulav.LRS_Bag import LRS_Bag
 from LRS_Lulav.LRS_params import LRS_params
 
 def handle_done_recording(context, *args, **kwargs):
+    user_id = LaunchConfiguration("user_id").perform(context)
+    project_id = LaunchConfiguration("project_id").perform(context)
     simulation_id = LaunchConfiguration("simulation_id").perform(context)
     simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)  
     simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)       
-    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], "mongodb://localhost:27017/", "simulations", "" + simulation_id + "_" + simulation_run_id, simulation_instance_id)
+    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], user_id, project_id, simulation_id, simulation_run_id, simulation_instance_id)
     bagparser.fill_mongo()
     
     # TODO: delete file
@@ -32,20 +34,15 @@ def handle_shutdown(context, *args, **kwargs):
     print(" -------- handle_shutdown: -------- ")
     print("-------------------------------------------------------------------------------------- ")
     
-def define_params(user_id, project_id, simulation_id):
-    # TODO: use LRS agent SDK. 
-    # Fill param files. 
-    lrs_params = LRS_params(user_id, project_id, simulation_id)
-    lrs_params.init_params()    
-    
 def launch_setup(context, *args, **kwargs):
     user_id = LaunchConfiguration("user_id").perform(context)
     project_id = LaunchConfiguration("project_id").perform(context)
     simulation_id = LaunchConfiguration("simulation_id").perform(context)
-    # simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)
-    # simulation_instance_seq = LaunchConfiguration("simulation_instance_seq").perform(context)    
-    
-    define_params(user_id, project_id, simulation_id)
+    simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)
+    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)    
+        
+    lrs_params = LRS_params(user_id, project_id, simulation_id, simulation_run_id, simulation_instance_id)
+    lrs_params.init_params()    
     
     demo_elbit_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
