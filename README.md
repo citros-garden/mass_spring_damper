@@ -42,7 +42,12 @@ open the repository in the VScode:
                 cd ~/demo_lulav_elbit
                 code .
 
-open the repository in the container from VScode
+open the repository in the container from VScode with `reopen in container` option.
+
+build and source the workspace:
+
+                colcon build
+                source install/local_setup.bash
 
 # Run the default example:
 
