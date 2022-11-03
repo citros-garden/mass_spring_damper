@@ -5,7 +5,7 @@ ENV ROS_DISTRO foxy
 # install ros package
 RUN apt-get update && apt-get install -y \
     python3-pip \
-    && apt-get install curl \
+    curl \
       # ros-${ROS_DISTRO}-demo-nodes-cpp \
       # ros-${ROS_DISTRO}-demo-nodes-py \    
     && rm -rf /var/lib/apt/lists/* 

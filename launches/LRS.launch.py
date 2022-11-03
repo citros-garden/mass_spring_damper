@@ -16,13 +16,14 @@ from LRS_Lulav.LRS_Bag import LRS_Bag
 from LRS_Lulav.LRS_params import LRS_params
 from LRS_Lulav.LRS_util import LRS_util
 
+import pymongo
+MONGO_CONNECTION_STRING = "mongodb://localhost:27017/"
+mymongo = pymongo.MongoClient(MONGO_CONNECTION_STRING)
+
 def handle_done_recording(context, *args, **kwargs):
-    user_id = LaunchConfiguration("user_id").perform(context)
-    project_id = LaunchConfiguration("project_id").perform(context)
-    simulation_id = LaunchConfiguration("simulation_id").perform(context)
-    simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)  
-    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)       
-    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], user_id, project_id, simulation_id, simulation_run_id, simulation_instance_id)
+    test_run_id = LaunchConfiguration("test_run_id").perform(context)  
+    simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)       
+    bagparser = LRS_Bag(["tmp/bag/bag_0.db3"], "mongodb://localhost:27017/", "test_data", test_run_id, simulation_run_id)
     bagparser.fill_mongo()
     
     # TODO: delete file
@@ -39,19 +40,22 @@ def handle_shutdown(context, *args, **kwargs):
     print("-------------------------------------------------------------------------------------- ")
     
 def launch_setup(context, *args, **kwargs):
-    user_id = LaunchConfiguration("user_id").perform(context)
-    project_id = LaunchConfiguration("project_id").perform(context)
-    simulation_id = LaunchConfiguration("simulation_id").perform(context)
+    test_run_id = LaunchConfiguration("test_run_id").perform(context)
     simulation_run_id = LaunchConfiguration("simulation_run_id").perform(context)
-    simulation_instance_id = LaunchConfiguration("simulation_instance_id").perform(context)    
-        
-    lrs_params = LRS_params(user_id, project_id, simulation_id, simulation_run_id, simulation_instance_id)
-    lrs_params.init_params()    
+    
+    test_run = mymongo['tests']["runs"].find_one({"_id": ObjectId(test_run_id)})
+    test_id = test_run["test_id"]
     
     lrs_util = LRS_util()
+    test = lrs_util.get_test(test_id)            
     
-    simulation = lrs_util.get_simulation(simulation_id)
-    launch_id = simulation["launch_id"]
+    user_id = test["user_id"]
+    project_id = test["simulationSettings"]["project_id"]
+    
+    lrs_params = LRS_params(user_id, project_id, test_id, test_run_id, simulation_run_id)
+    lrs_params.init_params()    
+        
+    launch_id = test["simulationSettings"]["launch_id"]
     package, launch = lrs_util.get_launch_file(user_id, project_id, launch_id);    
     
     # print("-----------package.name:", package["name"])
@@ -70,14 +74,16 @@ def launch_setup(context, *args, **kwargs):
         ]),
         launch_arguments={}.items(),
     )
+    print(f"----------------------------------------------------------------") 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] Starting clients launch") 
+    print(f"----------------------------------------------------------------") 
     return [
         demo_elbit_launch,
         TimerAction(
-        period=simulation["timeout"],
+        period=f"{test['testSettings']['timeout']}",
         actions=[LogInfo(msg="---------TIMEOUT---------"), 
             OpaqueFunction(function=handle_timeout),
-            EmitEvent(event=Shutdown(reason=f"TIMEOUT of {simulation['timeout']} is reached."))],
+            EmitEvent(event=Shutdown(reason=f"TIMEOUT of {test['testSettings']['timeout']} is reached."))],
         )
     ]
 
@@ -127,35 +133,18 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # Arguments
+        # Arguments        
+
         DeclareLaunchArgument(
-            'user_id',
+            'test_run_id',
             description=(
-                "User id"
-            ),      
-        ),
-        DeclareLaunchArgument(
-            'project_id',
-            description=(
-                "Project id"
-            ),        
-        ),
-        DeclareLaunchArgument(
-            'simulation_id',
-            description=(
-                "Simulation id"
-            ),      
-        ),
-        DeclareLaunchArgument(
-            'simulation_run_id',
-            description=(
-                "Simulation Run id"
+                "Test Run id"
             ),      
         ),      
         DeclareLaunchArgument(
-            'simulation_instance_id',
+            'simulation_run_id',
             description=(
-                "Simulation sequence id, as part of [sequence]/[simulation.repeats]"
+                "Simulation run id, as part of [sequence]/[simulation.repeats]"
             ),      
             default_value=str(ObjectId()),
         ),    
