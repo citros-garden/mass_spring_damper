@@ -3,3 +3,5 @@ install
 log
 tmp
 __pycache__
+/utils
+.citros

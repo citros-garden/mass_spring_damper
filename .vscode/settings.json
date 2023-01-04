@@ -39,6 +39,7 @@
     "cSpell.words": [
         "athackst",
         "autopep",
+        "Citros",
         "cmake",
         "cppcheck",
         "cpplint",
@@ -70,4 +71,6 @@
         ".vscode-insiders",
         ".devcontainer/devcontainer.json"
     ],
+    "python.formatting.provider": "yapf",
+    "python.analysis.typeCheckingMode": "off",
 }
