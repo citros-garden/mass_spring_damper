@@ -65,11 +65,23 @@ to run the default controller:
 
 ## Docker build
 
-        docker build -t vovacooper/demo_lulav_elbit:latest .
+        citros docker build -t vovacooper/demo_lulav_elbit:latest .
 
 ## Docker run 
 
+        citros docker run --rm -it --net=host vovacooper/demo_lulav_elbit:latest citros run beebcb55-6110-4be4-8fec-05af808ce6fc 1
+        
+        
         docker run --rm -it --net=host vovacooper/demo_lulav_elbit:latest ros2 launch launches/LRS.launch.py user_id:=63502ab7865fb52ab569e90c project_id:=6351584232818a188f45fd59 simulation_id:=63523680846b4ecaf0404d00 simulation_instance_id:=635236a7846b4ecaf0404d01 simulation_instance_seq:=0
+
+
+        docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="http://host.docker.internal/api/graphql" \
+        -e "CITROS_LOGS"="http://host.docker.internal/logs" \
+        -e "CITROS_BAG"="http://host.docker.internal/bag" \
+        vovacooper/demo_lulav_elbit:latest \
+        citros run 2949dfbb-2545-479e-a42c-de1ce038f5c5 1 \
+        --key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjNjYWEyMjNhLWFhNzQtNDFlZS05MmEyLTViZWUzOTkyMzg1OSIsInVzZXJfbmFtZSI6Im5vYW1vb24iLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NTMyNDcxMSwiaWF0IjoxNjc1MjM4MzExLCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.YJvZfK5jKx7bLStCOhmOQxP5yo7K6MygFI-Te5z5BW0 
+        
         
 
 

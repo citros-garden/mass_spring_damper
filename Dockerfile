@@ -9,14 +9,21 @@ RUN apt-get update && apt-get install -y \
       # ros-${ROS_DISTRO}-demo-nodes-cpp \
       # ros-${ROS_DISTRO}-demo-nodes-py \    
     && rm -rf /var/lib/apt/lists/* 
+
+# CITROS
 # RUN apt-get install python-pip
+RUN sudo apt update && sudo apt install -y ros-foxy-rosbag2-storage-mcap
+# RUN sudo apt update & sudo apt install ros-rolling-rosbag2-storage-mcap
+RUN pip install utils/citros_cli
+# RUN pip install LRS-Lulav
+# END CITROS
+
 
 WORKDIR /app
 COPY . .
 RUN colcon build
 
-# RUN pip install utils/LRS
-RUN pip install LRS-Lulav
+
 
 RUN chmod +x ros2_entrypoint.sh
 ENTRYPOINT ["/app/ros2_entrypoint.sh"]
