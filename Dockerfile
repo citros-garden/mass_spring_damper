@@ -10,6 +10,11 @@ RUN apt-get update && apt-get install -y \
       # ros-${ROS_DISTRO}-demo-nodes-py \    
     && rm -rf /var/lib/apt/lists/* 
 
+
+WORKDIR /app
+COPY . .
+RUN colcon build
+
 # CITROS
 # RUN apt-get install python-pip
 RUN sudo apt update && sudo apt install -y ros-foxy-rosbag2-storage-mcap
@@ -19,9 +24,6 @@ RUN pip install utils/citros_cli
 # END CITROS
 
 
-WORKDIR /app
-COPY . .
-RUN colcon build
 
 
 
