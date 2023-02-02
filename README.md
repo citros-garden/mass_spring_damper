@@ -68,22 +68,56 @@ to run the default controller:
 ```bash 
 
 ## Docker build
-citros docker build -t vovacooper/demo_lulav_elbit:latest .
+citros docker build --no-cache -t demo_lulav_elbit .
 
 ## Docker run 
-citros docker run --rm -it --net=host vovacooper/demo_lulav_elbit:latest citros run beebcb55-6110-4be4-8fec-05af808ce6fc 1
-        
+citros docker run --rm -it --net=host demo_lulav_elbit
+citros docker run --rm -it --net=host demo_lulav_elbit citros run beebcb55-6110-4be4-8fec-05af808ce6fc 1
+
 # run from local machine.
 citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="http://host.docker.internal/api/graphql" \
 -e "CITROS_LOGS"="http://host.docker.internal/logs" \
 -e "CITROS_BAG"="http://host.docker.internal/bag" \
-vovacooper/demo_lulav_elbit:latest \
-citros run 4fc966d6-d4f9-4974-94f4-8d66bcde1c9a 1 \
+demo_lulav_elbit:latest \
+citros run 22c1315e-3acd-4fd3-91c3-65f9c4acde68 1 \
 --key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjNjYWEyMjNhLWFhNzQtNDFlZS05MmEyLTViZWUzOTkyMzg1OSIsInVzZXJfbmFtZSI6Im5vYW1vb24iLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NTM1NjU5MSwiaWF0IjoxNjc1MjcwMTkxLCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.GNYBdQALAryKtI1SCnJGR2wzFIsAyu1PaWqS2TglWyM 
 
 ```
 
 
 
+## gcloud: docker
 
+https://console.cloud.google.com/artifacts/browse/citros?project=citros&supportedpurview=project
+
+```bash
+# if building from linux machine
+docker build -t demo_lulav_elbit . 
+# *** when building from MAC M1 chip add FROM --platform=linux/amd64 ***
+docker buildx build --platform linux/amd64 -t demo_lulav_elbit .   
+
+# upload to google artifact registry
+docker tag demo_lulav_elbit europe-west2-docker.pkg.dev/citros/simulations/demo_lulav_elbit
+docker push europe-west2-docker.pkg.dev/citros/simulations/demo_lulav_elbit:latest
+```
+
+
+
+Jfrog
+```bash
+
+# tag  
+docker tag demo_lulav_elbit citros.jfrog.io/dev-virtual-docker/citros/demo_lulav_elbit:0.0.1
+# push
+docker push citros.jfrog.io/dev-virtual-docker/citros/demo_lulav_elbit:0.0.1
+
+# run
+citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="https://citros.io/api/graphql" \
+-e "CITROS_LOGS"="https://citros.io/logs" \
+-e "CITROS_BAG"="https://citros.io/bag" \
+demo_lulav_elbit:latest \
+citros run a9ff71c7-69c5-4b57-905c-195c5b4753bc 1 \
+--key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjNjYWEyMjNhLWFhNzQtNDFlZS05MmEyLTViZWUzOTkyMzg1OSIsInVzZXJfbmFtZSI6Im5vYW1vb24iLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NTQzODc0MSwiaWF0IjoxNjc1MzUyMzQxLCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.ypzeTPBAUW433OlMqNk1Piq7lqR6MwpxlZqEYytloJ4
+
+```
 

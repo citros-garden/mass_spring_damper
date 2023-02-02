@@ -1,0 +1,16 @@
+# comment
+.citros
+.devcontainer
+.github
+.vscode
+build
+install
+log
+tmp
+# utils
+.env
+.gitignore
+.gitmodules
+Dockerfile
+LICENSE
+README.md
