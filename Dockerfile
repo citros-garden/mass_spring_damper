@@ -1,4 +1,4 @@
-FROM ros:foxy
+FROM citros.jfrog.io/citros-dev/library/ros:foxy
 
 ENV ROS_DISTRO foxy
 
