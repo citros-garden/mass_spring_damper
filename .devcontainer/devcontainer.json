@@ -14,7 +14,9 @@
 		"--security-opt=apparmor:unconfined",
 		"--volume=/tmp/.X11-unix:/tmp/.X11-unix"
 	],
-	"containerEnv": { "DISPLAY": "${localEnv:DISPLAY}" },
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}"
+	},
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"terminal.integrated.profiles.linux": {
@@ -36,5 +38,15 @@
 		"streetsidesoftware.code-spell-checker",
 		"twxs.cmake",
 		"yzhang.markdown-all-in-one"
-	]
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/go:1": {
+			"version": "1.18"
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"moby": true
+		}
+		// "ghcr.io/dhoeric/features/google-cloud-cli:1": {}
+	}
 }
