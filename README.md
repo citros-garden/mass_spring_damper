@@ -103,15 +103,15 @@ docker buildx build --platform linux/amd64 -t demo_lulav_elbit .
 citros login
 # login with docker
 citros docker-login
-# upload to google artifact registry
-docker tag demo_lulav_elbit europe-west2-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
-docker push europe-west2-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
 
+# upload to local registry
+docker tag demo_lulav_elbit localhost:5001/citros/lulav/demo_lulav_elbit
+docker push localhost:5001/citros/lulav/demo_lulav_elbit
+# upload to google artifact registry
 docker tag demo_lulav_elbit us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
 docker push us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
 
 ```
-
 
 
 Jfrog
