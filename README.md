@@ -78,9 +78,12 @@ citros docker run --rm -it --net=host demo_lulav_elbit citros run beebcb55-6110-
 citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="http://host.docker.internal/api/graphql" \
 -e "CITROS_LOGS"="http://host.docker.internal/logs" \
 -e "CITROS_BAG"="http://host.docker.internal/bag" \
+-e "CITROS_DATA_DATABASE"="lulav" \
+-e "CITROS_DOMAIN"="http://host.docker.internal" \
+-e "CITROS_DATA_HOST"="host.docker.internal" \
 demo_lulav_elbit:latest \
-citros run 22c1315e-3acd-4fd3-91c3-65f9c4acde68 1 \
---key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjNjYWEyMjNhLWFhNzQtNDFlZS05MmEyLTViZWUzOTkyMzg1OSIsInVzZXJfbmFtZSI6Im5vYW1vb24iLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NTM1NjU5MSwiaWF0IjoxNjc1MjcwMTkxLCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.GNYBdQALAryKtI1SCnJGR2wzFIsAyu1PaWqS2TglWyM 
+citros run 02ecc4c5-6680-46aa-83c1-67c93a172b9e 0 \
+--key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjgwOGI4OGM2LTQ1YWItNDgxMS1iZGNjLTRhZmNlNTkxZjg0NSIsInVzZXJfbmFtZSI6InZvdmFjb29wZXIiLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NzQyODk4NCwiaWF0IjoxNjc3MzQyNTg0LCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.RUYY5VT_oSzcRaht-xk7SOUOHoD4ykCyrcaUQ5sLUXk
 
 ```
 
@@ -96,9 +99,17 @@ docker build -t demo_lulav_elbit .
 # *** when building from MAC M1 chip add FROM --platform=linux/amd64 ***
 docker buildx build --platform linux/amd64 -t demo_lulav_elbit .   
 
+# login to citros
+citros login
+# login with docker
+citros docker-login
 # upload to google artifact registry
-docker tag demo_lulav_elbit europe-west2-docker.pkg.dev/citros/simulations/demo_lulav_elbit
-docker push europe-west2-docker.pkg.dev/citros/simulations/demo_lulav_elbit:latest
+docker tag demo_lulav_elbit europe-west2-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
+docker push europe-west2-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
+
+docker tag demo_lulav_elbit us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
+docker push us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
+
 ```
 
 
