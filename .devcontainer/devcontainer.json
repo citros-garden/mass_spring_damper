@@ -6,8 +6,8 @@
 			"WORKSPACE": "${containerWorkspaceFolder}"
 		}
 	},
-	"remoteUser": "root",
-	// "remoteUser": "dev",
+	// "remoteUser": "root",
+	"remoteUser": "ros",
 	"runArgs": [
 		"--network=host",
 		"--cap-add=SYS_PTRACE",
