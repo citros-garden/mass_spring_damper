@@ -17,7 +17,7 @@ $${X \over F} = {\omega_n^2 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
 
 where the natural frequency $\omega_n = \sqrt{k \over m}$
 
-You can choose the system's parameters `m`, `k` and `c` and choose the initial condition `x0`, `v0` and `a0` and set them in the [dynamics parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/dynamics/config/params.yaml)
+You can choose the system's parameters `m`, `k` and `c` and choose the initial condition `x0`, `v0` and `a0` and set them in the [dynamics parameters file](src/dynamics/config/params.yaml)
 
 
 # The controller
@@ -28,18 +28,18 @@ the default controller is a simple PID controller with the following form:
 
 $$f(t) = {k_pe(t) + k_i\int{e(t)dt}} + k_d {d\over dt}(e(t))$$
 
-you can tune the controller gains, $k_p$, $k_i$, $k_d$ on the [controller parameters file](https://github.com/lulav/demo_lulav_elbit/blob/foxy/src/controller/config/params.yaml)
+you can tune the controller gains, $k_p$, $k_i$, $k_d$ on the [controller parameters file](src/controller/config/params.yaml)
 
 
 # Installation
 
 clone the repository to your local machine:
                 
-                git clone git@github.com:lulav/demo_lulav_elbit.git
+                git clone git@github.com:citros-garden/mass_spring_damper.git
 
 open the repository in the VScode:
 
-                cd ~/demo_lulav_elbit
+                cd ~/mass_spring_damper
                 code .
 
 open the repository in the container from VScode with `reopen in container` option.
@@ -50,6 +50,12 @@ build and source the workspace:
                 source install/local_setup.bash
 
 # Run the default example:
+
+## Recommended
+
+Use VSCode tasks. build with `build` and then launch simulator with `launch` (default controller).
+
+## From Terminal (NOT RECOMMENDED)
 
 you can run the free-system without controller with this launch file:
 
@@ -68,11 +74,11 @@ to run the default controller:
 ```bash 
 
 ## Docker build
-citros docker build --no-cache -t demo_lulav_elbit .
+citros docker build --no-cache -t mass_spring_dumper .
 
 ## Docker run 
-citros docker run --rm -it --net=host demo_lulav_elbit
-citros docker run --rm -it --net=host demo_lulav_elbit citros run beebcb55-6110-4be4-8fec-05af808ce6fc 1
+citros docker run --rm -it --net=host mass_spring_dumper
+citros docker run --rm -it --net=host mass_spring_dumper citros run beebcb55-6110-4be4-8fec-05af808ce6fc 1
 
 # run from local machine.
 citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="http://host.docker.internal/api/graphql" \
@@ -81,7 +87,7 @@ citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="http://host.docker
 -e "CITROS_DATA_DATABASE"="lulav" \
 -e "CITROS_DOMAIN"="http://host.docker.internal" \
 -e "CITROS_DATA_HOST"="host.docker.internal" \
-demo_lulav_elbit:latest \
+mass_spring_dumper:latest \
 citros run 02ecc4c5-6680-46aa-83c1-67c93a172b9e 0 \
 --key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjgwOGI4OGM2LTQ1YWItNDgxMS1iZGNjLTRhZmNlNTkxZjg0NSIsInVzZXJfbmFtZSI6InZvdmFjb29wZXIiLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NzQyODk4NCwiaWF0IjoxNjc3MzQyNTg0LCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.RUYY5VT_oSzcRaht-xk7SOUOHoD4ykCyrcaUQ5sLUXk
 
@@ -95,9 +101,9 @@ https://console.cloud.google.com/artifacts/browse/citros?project=citros&supporte
 
 ```bash
 # if building from linux machine
-docker build -t demo_lulav_elbit . 
+docker build -t mass_spring_dumper . 
 # *** when building from MAC M1 chip add FROM --platform=linux/amd64 ***
-docker buildx build --platform linux/amd64 -t demo_lulav_elbit .   
+docker buildx build --platform linux/amd64 -t mass_spring_dumper .   
 
 # login to citros
 citros login
@@ -105,11 +111,11 @@ citros login
 citros docker-login
 
 # upload to local registry
-docker tag demo_lulav_elbit localhost:5001/citros/lulav/demo_lulav_elbit
-docker push localhost:5001/citros/lulav/demo_lulav_elbit
+docker tag mass_spring_dumper localhost:5001/citros/lulav/mass_spring_dumper
+docker push localhost:5001/citros/lulav/mass_spring_dumper
 # upload to google artifact registry
-docker tag demo_lulav_elbit us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
-docker push us-central1-docker.pkg.dev/citros/lulav/demo_lulav_elbit:latest
+docker tag mass_spring_dumper us-central1-docker.pkg.dev/citros/lulav/mass_spring_dumper:latest
+docker push us-central1-docker.pkg.dev/citros/lulav/mass_spring_dumper:latest
 
 ```
 
@@ -118,15 +124,15 @@ Jfrog
 ```bash
 
 # tag  
-docker tag demo_lulav_elbit citros.jfrog.io/dev-virtual-docker/citros/demo_lulav_elbit:0.0.1
+docker tag mass_spring_dumper citros.jfrog.io/dev-virtual-docker/citros/mass_spring_dumper:0.0.1
 # push
-docker push citros.jfrog.io/dev-virtual-docker/citros/demo_lulav_elbit:0.0.1
+docker push citros.jfrog.io/dev-virtual-docker/citros/mass_spring_dumper:0.0.1
 
 # run
 citros docker run --rm -it --net=host -e "CITROS_ENTRYPOINT"="https://citros.io/api/graphql" \
 -e "CITROS_LOGS"="https://citros.io/logs" \
 -e "CITROS_BAG"="https://citros.io/bag" \
-demo_lulav_elbit:latest \
+mass_spring_dumper:latest \
 citros run a9ff71c7-69c5-4b57-905c-195c5b4753bc 1 \
 --key eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2l0cm9zX2FkbWluIiwidXNlcl9pZCI6IjNjYWEyMjNhLWFhNzQtNDFlZS05MmEyLTViZWUzOTkyMzg1OSIsInVzZXJfbmFtZSI6Im5vYW1vb24iLCJjaXRyb3Nfcm9sZSI6InVzZXIiLCJvcmdhbml6YXRpb25faWQiOiJlOTE1ZDYzOS02MzcyLTQ1ZTQtODU1ZC1hOGM5YjdkNmFiMDIiLCJvcmdhbml6YXRpb25fdHlwZSI6Ik1BTkFHRSIsImRvbWFpbl9wcmVmaXgiOiJsdWxhdiIsImV4cCI6MTY3NTQzODc0MSwiaWF0IjoxNjc1MzUyMzQxLCJhdWQiOiJwb3N0Z3JhcGhpbGUiLCJpc3MiOiJwb3N0Z3JhcGhpbGUifQ.ypzeTPBAUW433OlMqNk1Piq7lqR6MwpxlZqEYytloJ4
 
