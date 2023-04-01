@@ -51,6 +51,12 @@ build and source the workspace:
 
 # Run the default example:
 
+## Recommended
+
+Use VSCode tasks. build with `build` and then launch simulator with `launch` (default controller).
+
+## From Terminal (NOT RECOMMENDED)
+
 you can run the free-system without controller with this launch file:
 
                 ros2 launch dynamics dynamics.launch.py
