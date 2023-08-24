@@ -1,3 +1,0 @@
-[submodule "utils/citros_cli"]
-	path = utils/citros_cli
-	url = git@github.com:lulav/citros_cli.git
