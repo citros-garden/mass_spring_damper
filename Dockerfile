@@ -30,10 +30,12 @@ RUN colcon build
 
 # RUN sudo apt update & sudo apt install ros-rolling-rosbag2-storage-mcap
 # TODO: fix for production
-RUN pip install utils/citros_cli
+# RUN pip install utils/citros_cli
 # RUN pip install LRS-Lulav
 # END CITROS
 
+RUN pip install citros
+RUN pip install citros --upgrade
 
 
 

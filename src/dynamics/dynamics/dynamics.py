@@ -37,6 +37,7 @@ class Dynamics(Node):
         self.v = self.get_parameter('v').get_parameter_value().double_value
         self.a = self.get_parameter('a').get_parameter_value().double_value
 
+        self.get_logger().info(f"[m,k,c] = [{self.m},{self.k},{self.c}]")
         time.sleep(1)
 
         self.timer = self.create_timer(self.dt, self.step)
