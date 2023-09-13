@@ -72,4 +72,6 @@ to run the default controller:
 
 Open the project in a `devcontainer` with `reopen in container` option in VSCode, all the development environment is ready for further development.
 
+# Example from Foxglove :eyes:
+
 <video src='https://user-images.githubusercontent.com/58637596/194520348-c97344c0-b9be-4ad5-ba11-29188c18011e.mp4' width=600/>
