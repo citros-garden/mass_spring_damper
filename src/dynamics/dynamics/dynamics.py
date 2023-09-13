@@ -15,13 +15,13 @@ class Dynamics(Node):
         self.dt = 0.01  # seconds
         # define parameters
 
-        self.declare_parameter('m')
-        self.declare_parameter('k')
-        self.declare_parameter('c')
+        self.declare_parameter('m', 1.0)
+        self.declare_parameter('k', 2.5)
+        self.declare_parameter('c', 0.3)
 
-        self.declare_parameter('x')
-        self.declare_parameter('v')
-        self.declare_parameter('a')
+        self.declare_parameter('x', -1.0)
+        self.declare_parameter('v', 0.0)
+        self.declare_parameter('a', 0.0)
 
         self.ctrl_cmd = 0
         self.pose = Float64()

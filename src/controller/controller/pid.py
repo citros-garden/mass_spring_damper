@@ -16,10 +16,10 @@ class Pid(Node):
         self.dt = 0.1  # seconds
         # define parameters
 
-        self.declare_parameter('kp')
-        self.declare_parameter('ki')
-        self.declare_parameter('kd')
-        self.declare_parameter('setpoint')
+        self.declare_parameter('kp', 0.6)
+        self.declare_parameter('ki', 0.2)
+        self.declare_parameter('kd', 2.0)
+        self.declare_parameter('setpoint', 0.0)
 
         self.ctrl_msg = Float64()
 
