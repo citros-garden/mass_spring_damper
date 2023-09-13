@@ -14,13 +14,15 @@
             "label": "launch",
             "type": "shell",
             "command": "source install/local_setup.bash && ros2 launch dynamics dynamics_controller.launch.py",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "dependsOn": ["build"]
         },
         {
             "label": "launch-free-system",
             "type": "shell",
             "command": "source install/local_setup.bash && ros2 launch dynamics dynamics.launch.py",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "dependsOn": ["build"]
         },
       ]
 }
