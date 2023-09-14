@@ -17,7 +17,7 @@ $${X \over F} = {\omega_n^2 \over s^2 +2\omega_n\zeta s + \omega_n^2} $$
 
 where the natural frequency $\omega_n = \sqrt{k \over m}$
 
-You can choose the system's parameters `m`, `k` and `c` and choose the initial condition `x0`, `v0` and `a0` and set them in the [dynamics parameters file](src/dynamics/config/params.yaml)
+You can choose the system's parameters `m`, `k` and `c` and choose the initial condition `x0`, `v0` and `a0` and set them in the [dynamics parameters file](src/dynamics/config/params.yaml).
 
 
 ## The controller
@@ -28,7 +28,7 @@ the default controller is a simple PID controller with the following form:
 
 $$f(t) = {k_pe(t) + k_i\int{e(t)dt}} + k_d {d\over dt}(e(t))$$
 
-you can tune the controller gains, $k_p$, $k_i$, $k_d$ on the [controller parameters file](src/controller/config/params.yaml)
+you can tune the controller gains, $k_p$, $k_i$, $k_d$ on the [controller parameters file](src/controller/config/params.yaml).
 
 
 # Installation 🛫
