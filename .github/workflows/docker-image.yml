@@ -1,28 +1,25 @@
-name: Docker Image CI
+name: Semantic Release
 
 on:
   push:
-    branches: [ "foxy" ]
-  pull_request:
-    branches: [ "foxy" ]
+    branches:
+      - main
 
 jobs:
-
-  build:
-
+  release:
     runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
     - uses: actions/checkout@v3
-    - name: Docker login
-      env:  
-        DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
-        DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_REPOSITORY }}        
-      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN           
-      
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }} 
-      
-    - name: Docker Push 
-      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }} 
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.SEMANTIC_RELEASE_ACCESS_TOKEN }}
+
+    - name: Python Semantic Release
+      uses: python-semantic-release/python-semantic-release@master
+      with:
+        github_token: ${{ secrets.SEMANTIC_RELEASE_ACCESS_TOKEN }}
